@@ -159,10 +159,13 @@ get_vcov.ipw_pooled <- function(model, vcov = NULL, ...) {
 #' @export
 set_coef.ipw_pooled <- function(model, coefs, ...) {
     # Write back into the store the active reading presents, or the jacobian
-    # comes back zero and every standard error is silently NA. Both readings
-    # present the same store here: a pooled result keeps its estimates in one
-    # frame, and `coef()` reads that frame's `estimate` column whichever reading
-    # the frame holds.
+    # comes back zero and every standard error is silently NA. The presented
+    # reading always lives in the `estimates` frame, and a flip swaps the
+    # frames, so writing that frame's `estimate` column writes exactly where
+    # `coef()` reads in either reading. The alternate reading stashed alongside
+    # it is left stale on purpose: this perturbed copy is internal to the
+    # delta-method pipeline, and is never flipped or read through a per-call
+    # `effects` argument.
     model[["estimates"]][["estimate"]] <- unname(coefs)
     return(model)
 }
@@ -183,8 +186,10 @@ sanitize_model_specific.ipw_pooled <- function(
     }
 
     # The same refusal in both readings, because the reason is the same in both
-    # and there is no counterpart to `as_conditional()` to offer as a remedy: a
-    # pooled result is pooled coefficients rather than a fit.
+    # and flipping the reading is no remedy: `as_conditional()` changes which
+    # reading a pooled result presents, not what it holds, and a pooled result
+    # is pooled coefficients rather than a fit, so neither reading has per-row
+    # quantities.
     stop_sprintf(
         "A pooled result reports pooled effects and retains no fitted outcome model, so per-row quantities such as predictions, comparisons, and slopes are unavailable in either reading. `hypotheses()` is the supported surface for an `ipw_pooled` result. To work with per-row quantities, call marginaleffects on each unpooled fit's conditional reading before pooling."
     )

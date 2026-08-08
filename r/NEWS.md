@@ -9,7 +9,7 @@ New:
 * Support for `glmtoolbox::glmgee()` and `glmtoolbox::gnm()` models. Thanks to @luifrancgom for report #1148.
 * Support for `nestedLogit::nestedLogit()` models. Thanks to @strengejacke for report #1675.
 * Improved `type` error for `aft` models.
-* Support for inverse probability weighted results of class `ipw` from the `propensity` and `balancing` packages. These results present either their marginal causal effects or their weighted outcome model, and `as_conditional()` switches the reading: `predictions()`, `comparisons()`, and `slopes()` operate on the conditional reading, and `hypotheses()` on either. Multiply imputed results pooled with `pool_ipw()` (class `ipw_pooled`) are supported through `hypotheses()` in either reading.
+* Support for inverse probability weighted results of class `ipw` from the `propensity` and `balancing` packages. These results present either their marginal causal effects or their weighted outcome model, and `as_conditional()` switches the reading: `predictions()`, `comparisons()`, and `slopes()` operate on the conditional reading, and `hypotheses()` on either. Multiply imputed results pooled with `pool_ipw()` (class `ipw_pooled`) are supported through `hypotheses()` in either reading, and `as_conditional()` and `as_marginal()` switch which reading a pooled result presents.
 
 Breaking changes:
 
