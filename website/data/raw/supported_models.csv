@@ -5,6 +5,8 @@ afex,afex_aov
 Amelia,amest
 aod,betabin
 aod,glimML
+balancing,ipw
+balancing,pool_ipw
 betareg,betareg
 bife,bife
 bife,bife
@@ -74,6 +76,8 @@ phylolm,phyloglm
 phylolm,phylolm
 phylolm,phylolm
 plm,plm
+propensity,ipw
+propensity,pool_ipw
 pscl,hurdle
 pscl,hurdle
 pscl,zeroinfl
