@@ -116,3 +116,76 @@ sanitize_model_specific.ipw <- function(
 
     return(model)
 }
+
+
+#' @rdname get_coef
+#' @export
+get_coef.ipw_pooled <- function(model, ...) {
+    # An `ipw_pooled` result presents one of two readings, and which one was
+    # settled when it was pooled. `coef()` already returns the active one: the
+    # pooled causal effects in marginal mode, the pooled coefficients of the
+    # weighted outcome models in conditional mode.
+    stats::coef(model)
+}
+
+
+#' @rdname get_vcov
+#' @export
+get_vcov.ipw_pooled <- function(model, vcov = NULL, ...) {
+    if (isFALSE(vcov)) {
+        return(NULL)
+    }
+    if (isTRUE(checkmate::check_matrix(vcov))) {
+        return(vcov)
+    }
+
+    # Both readings are pooled covariances: Rubin's rules combining covariances
+    # the fitting package computed over its own stacked estimating equations.
+    # There is nothing here for `sandwich` or `clubSandwich` to reweight, so a
+    # robust or clustered request is refused rather than silently answered with
+    # the default. NULL and TRUE both mean "the model's own covariance", and
+    # TRUE is what the main entry points pass.
+    if (!is.null(vcov) && !isTRUE(vcov)) {
+        stop_sprintf(
+            "The `vcov` argument is not supported for models of class `ipw_pooled`. Its covariance combines, by Rubin's rules, covariances the fitting package computed over the stacked estimating equations of each pooled analysis, so it already accounts for the estimation of the weights and for the variation between analyses. Supply a matrix to override it, or leave `vcov` at its default."
+        )
+    }
+
+    stats::vcov(model)
+}
+
+
+#' @rdname set_coef
+#' @export
+set_coef.ipw_pooled <- function(model, coefs, ...) {
+    # Write back into the store the active reading presents, or the jacobian
+    # comes back zero and every standard error is silently NA. Both readings
+    # present the same store here: a pooled result keeps its estimates in one
+    # frame, and `coef()` reads that frame's `estimate` column whichever reading
+    # the frame holds.
+    model[["estimates"]][["estimate"]] <- unname(coefs)
+    return(model)
+}
+
+
+#' @rdname sanitize_model_specific
+#' @export
+sanitize_model_specific.ipw_pooled <- function(
+    model,
+    calling_function = "unknown",
+    ...
+) {
+    # `hypotheses()` is correct in either reading and on every standard error
+    # method, so it is always let through. Every prediction-based entry point
+    # arrives as "predictions" or "comparisons", slopes included.
+    if (identical(calling_function, "hypotheses")) {
+        return(model)
+    }
+
+    # The same refusal in both readings, because the reason is the same in both
+    # and there is no counterpart to `as_conditional()` to offer as a remedy: a
+    # pooled result is pooled coefficients rather than a fit.
+    stop_sprintf(
+        "A pooled result reports pooled effects and retains no fitted outcome model, so per-row quantities such as predictions, comparisons, and slopes are unavailable in either reading. `hypotheses()` is the supported surface for an `ipw_pooled` result. To work with per-row quantities, call marginaleffects on each unpooled fit's conditional reading before pooling."
+    )
+}

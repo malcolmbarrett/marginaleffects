@@ -16,6 +16,7 @@
 \alias{get_vcov.biglm}
 \alias{get_vcov.brmsfit}
 \alias{get_vcov.ipw}
+\alias{get_vcov.ipw_pooled}
 \alias{get_vcov.bart}
 \alias{get_vcov.gamlss}
 \alias{get_vcov.glmmTMB}
@@ -52,6 +53,8 @@ get_vcov(model, ...)
 \method{get_vcov}{brmsfit}(model, vcov = NULL, ...)
 
 \method{get_vcov}{ipw}(model, vcov = NULL, ...)
+
+\method{get_vcov}{ipw_pooled}(model, vcov = NULL, ...)
 
 \method{get_vcov}{bart}(model, vcov = NULL, ...)
 

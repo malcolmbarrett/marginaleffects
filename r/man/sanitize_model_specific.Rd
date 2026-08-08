@@ -16,6 +16,7 @@
 \alias{sanitize_model_specific.biglm}
 \alias{sanitize_model_specific.brmsfit}
 \alias{sanitize_model_specific.ipw}
+\alias{sanitize_model_specific.ipw_pooled}
 \alias{sanitize_model_specific.bart}
 \alias{sanitize_model_specific.fixest}
 \alias{sanitize_model_specific.gamlss}
@@ -57,6 +58,8 @@ sanitize_model_specific(model, ...)
 \method{sanitize_model_specific}{brmsfit}(model, ...)
 
 \method{sanitize_model_specific}{ipw}(model, calling_function = "unknown", ...)
+
+\method{sanitize_model_specific}{ipw_pooled}(model, calling_function = "unknown", ...)
 
 \method{sanitize_model_specific}{bart}(model, calling_function, ...)
 

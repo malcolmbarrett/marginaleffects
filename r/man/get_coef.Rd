@@ -22,6 +22,7 @@
 \alias{get_coef.bracl}
 \alias{get_coef.brmsfit}
 \alias{get_coef.ipw}
+\alias{get_coef.ipw_pooled}
 \alias{get_coef.data.frame}
 \alias{get_coef.gamlss}
 \alias{get_coef.glmmTMB}
@@ -67,6 +68,8 @@ get_coef(model, ...)
 \method{get_coef}{brmsfit}(model, ...)
 
 \method{get_coef}{ipw}(model, ...)
+
+\method{get_coef}{ipw_pooled}(model, ...)
 
 \method{get_coef}{data.frame}(model, ...)
 

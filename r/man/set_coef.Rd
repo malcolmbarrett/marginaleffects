@@ -27,6 +27,7 @@
 \alias{set_coef.betareg}
 \alias{set_coef.multinom}
 \alias{set_coef.ipw}
+\alias{set_coef.ipw_pooled}
 \alias{set_coef.crch}
 \alias{set_coef.hxlr}
 \alias{set_coef.data.frame}
@@ -90,6 +91,8 @@ set_coef(model, coefs, ...)
 \method{set_coef}{multinom}(model, coefs, ...)
 
 \method{set_coef}{ipw}(model, coefs, ...)
+
+\method{set_coef}{ipw_pooled}(model, coefs, ...)
 
 \method{set_coef}{crch}(model, coefs, ...)
 
