@@ -81,6 +81,7 @@ sanity_model_supported_class <- function(model, custom = TRUE) {
             "hetprob",
             "hurdle",
             "hxlr",
+            "ipw",
             "ivreg",
             "iv_robust",
             "ivpml",

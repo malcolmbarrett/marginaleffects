@@ -2,9 +2,9 @@
 % Please edit documentation in R/get_coef.R, R/methods_DirichletReg.R,
 %   R/methods_MASS.R, R/methods_WeightIt.R, R/methods_aaa.R, R/methods_afex.R,
 %   R/methods_betareg.R, R/methods_nnet.R, R/methods_brglm2.R,
-%   R/methods_brms.R, R/methods_dataframe.R, R/methods_gamlss.R,
-%   R/methods_glmmTMB.R, R/methods_glmtoolbox.R, R/methods_lme4.R,
-%   R/methods_mclogit.R, R/methods_mgcv.R, R/methods_mlm.R,
+%   R/methods_brms.R, R/methods_causalgenerics.R, R/methods_dataframe.R,
+%   R/methods_gamlss.R, R/methods_glmmTMB.R, R/methods_glmtoolbox.R,
+%   R/methods_lme4.R, R/methods_mclogit.R, R/methods_mgcv.R, R/methods_mlm.R,
 %   R/methods_nestedLogit.R, R/methods_sampleSelection.R, R/methods_scam.R,
 %   R/methods_survey.R, R/methods_svyVGAM.R, R/methods_systemfit.R,
 %   R/methods_tidymodels.R
@@ -21,6 +21,7 @@
 \alias{get_coef.brmultinom}
 \alias{get_coef.bracl}
 \alias{get_coef.brmsfit}
+\alias{get_coef.ipw}
 \alias{get_coef.data.frame}
 \alias{get_coef.gamlss}
 \alias{get_coef.glmmTMB}
@@ -64,6 +65,8 @@ get_coef(model, ...)
 \method{get_coef}{bracl}(model, ...)
 
 \method{get_coef}{brmsfit}(model, ...)
+
+\method{get_coef}{ipw}(model, ...)
 
 \method{get_coef}{data.frame}(model, ...)
 

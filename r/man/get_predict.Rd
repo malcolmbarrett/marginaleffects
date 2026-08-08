@@ -2,15 +2,16 @@
 % Please edit documentation in R/get_predict.R, R/methods_DirichletReg.R,
 %   R/methods_MASS.R, R/methods_MCMCglmm.R, R/methods_aaa.R, R/methods_afex.R,
 %   R/methods_aod.R, R/methods_betareg.R, R/methods_bife.R, R/methods_biglm.R,
-%   R/methods_nnet.R, R/methods_brglm2.R, R/methods_brms.R, R/methods_crch.R,
-%   R/methods_dbarts.R, R/methods_fixest.R, R/methods_flexsurv.R,
-%   R/methods_gamlss.R, R/methods_glmmTMB.R, R/methods_glmtoolbox.R,
-%   R/methods_lme4.R, R/methods_mclogit.R, R/methods_mhurdle.R,
-%   R/methods_mlogit.R, R/methods_mlr3.R, R/methods_nestedLogit.R,
-%   R/methods_ordinal.R, R/methods_quantreg.R, R/methods_rms.R,
-%   R/methods_robustlmm.R, R/methods_rstanarm.R, R/methods_rstpm2.R,
-%   R/methods_survey.R, R/methods_survival.R, R/methods_svyVGAM.R,
-%   R/methods_tidymodels.R, R/methods_tobit1.R
+%   R/methods_nnet.R, R/methods_brglm2.R, R/methods_brms.R,
+%   R/methods_causalgenerics.R, R/methods_crch.R, R/methods_dbarts.R,
+%   R/methods_fixest.R, R/methods_flexsurv.R, R/methods_gamlss.R,
+%   R/methods_glmmTMB.R, R/methods_glmtoolbox.R, R/methods_lme4.R,
+%   R/methods_mclogit.R, R/methods_mhurdle.R, R/methods_mlogit.R,
+%   R/methods_mlr3.R, R/methods_nestedLogit.R, R/methods_ordinal.R,
+%   R/methods_quantreg.R, R/methods_rms.R, R/methods_robustlmm.R,
+%   R/methods_rstanarm.R, R/methods_rstpm2.R, R/methods_survey.R,
+%   R/methods_survival.R, R/methods_svyVGAM.R, R/methods_tidymodels.R,
+%   R/methods_tobit1.R
 \name{get_predict}
 \alias{get_predict}
 \alias{get_predict.default}
@@ -29,6 +30,7 @@
 \alias{get_predict.multinom}
 \alias{get_predict.brmultinom}
 \alias{get_predict.brmsfit}
+\alias{get_predict.ipw}
 \alias{get_predict.crch}
 \alias{get_predict.bart}
 \alias{get_predict.fixest}
@@ -156,6 +158,8 @@ get_predict(
 )
 
 \method{get_predict}{brmsfit}(model, newdata = get_modeldata(model), type = "response", ...)
+
+\method{get_predict}{ipw}(model, newdata, type = "response", ...)
 
 \method{get_predict}{crch}(model, newdata = NULL, type = "location", ...)
 

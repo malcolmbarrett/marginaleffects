@@ -51,6 +51,7 @@ Suggests:
     afex,
     aod,
     arrow,
+    balancing,
     bayestestR,
     bench,
     betareg,
@@ -66,6 +67,7 @@ Suggests:
     car,
     carData,
     causaldata,
+    causalgenerics,
     clarify,
     cjoint,
     cobalt,
@@ -149,6 +151,7 @@ Suggests:
     polspline,
     posterior,
     probably,
+    propensity,
     pscl,
     purrr,
     quantreg,
@@ -202,6 +205,10 @@ Suggests:
     altdoc,
     knitr,
     quarto
+Remotes:
+    r-causal/balancing,
+    r-causal/causalgenerics,
+    r-causal/propensity
 Collate:
     'add_hypothesis.R'
     'add_rowid.R'
@@ -280,6 +287,7 @@ Collate:
     'methods_nnet.R'
     'methods_brglm2.R'
     'methods_brms.R'
+    'methods_causalgenerics.R'
     'methods_crch.R'
     'methods_dataframe.R'
     'methods_dbarts.R'

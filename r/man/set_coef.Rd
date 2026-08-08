@@ -2,14 +2,14 @@
 % Please edit documentation in R/set_coef.R, R/methods_AER.R,
 %   R/methods_DirichletReg.R, R/methods_MASS.R, R/methods_Rchoice.R,
 %   R/methods_aaa.R, R/methods_afex.R, R/methods_aod.R, R/methods_betareg.R,
-%   R/methods_nnet.R, R/methods_crch.R, R/methods_dataframe.R,
-%   R/methods_flexsurv.R, R/methods_gamlss.R, R/methods_glmmTMB.R,
-%   R/methods_glmtoolbox.R, R/methods_glmx.R, R/methods_lme4.R,
-%   R/methods_mlm.R, R/methods_nestedLogit.R, R/methods_nlme.R,
-%   R/methods_pscl.R, R/methods_robustlmm.R, R/methods_rstpm2.R,
-%   R/methods_sampleSelection.R, R/methods_scam.R, R/methods_survey.R,
-%   R/methods_survival.R, R/methods_svyVGAM.R, R/methods_systemfit.R,
-%   R/methods_tidymodels.R
+%   R/methods_nnet.R, R/methods_causalgenerics.R, R/methods_crch.R,
+%   R/methods_dataframe.R, R/methods_flexsurv.R, R/methods_gamlss.R,
+%   R/methods_glmmTMB.R, R/methods_glmtoolbox.R, R/methods_glmx.R,
+%   R/methods_lme4.R, R/methods_mlm.R, R/methods_nestedLogit.R,
+%   R/methods_nlme.R, R/methods_pscl.R, R/methods_robustlmm.R,
+%   R/methods_rstpm2.R, R/methods_sampleSelection.R, R/methods_scam.R,
+%   R/methods_survey.R, R/methods_survival.R, R/methods_svyVGAM.R,
+%   R/methods_systemfit.R, R/methods_tidymodels.R
 \name{set_coef}
 \alias{set_coef}
 \alias{set_coef.default}
@@ -26,6 +26,7 @@
 \alias{set_coef.glimML}
 \alias{set_coef.betareg}
 \alias{set_coef.multinom}
+\alias{set_coef.ipw}
 \alias{set_coef.crch}
 \alias{set_coef.hxlr}
 \alias{set_coef.data.frame}
@@ -87,6 +88,8 @@ set_coef(model, coefs, ...)
 \method{set_coef}{betareg}(model, coefs, ...)
 
 \method{set_coef}{multinom}(model, coefs, ...)
+
+\method{set_coef}{ipw}(model, coefs, ...)
 
 \method{set_coef}{crch}(model, coefs, ...)
 
