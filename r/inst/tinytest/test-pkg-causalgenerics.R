@@ -71,7 +71,7 @@ for (i in seq_len(nrow(known))) {
         df = known$df[i]
     )
     expect_equal(nrow(hd), 1L)
-    expect_equal(hd$p.value, known$p.value[i], tolerance = 1e-6)
+    expect_equivalent(hd$p.value, known$p.value[i], tolerance = 1e-6)
 }
 
 # A non-linear transform of the pooled marginal reading, checked against the
