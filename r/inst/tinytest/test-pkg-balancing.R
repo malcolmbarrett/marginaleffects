@@ -148,3 +148,72 @@ expect_error(
     avg_comparisons(cond, variables = "exposure", newdata = dat, vcov = "HC3"),
     pattern = "not supported for models of class"
 )
+
+# One analysis: a seeded dataset, the weights balanced on it, and the weighted
+# outcome model those make an `ipw` result from. Three of them stand in for
+# three imputations of one incomplete dataset, which is what `pool_ipw()` pools.
+# Independently simulated rather than perturbed copies of one dataset, so the
+# between-imputation variance the pooling adds is not degenerate. The seeds are
+# not the one the fixture above uses, so these three analyses are independent of
+# it as well as of each other, and each was checked to reach the solver's
+# convergence tolerance without a warning at this sample size.
+balance_one <- function(seed, n = 400) {
+    set.seed(seed)
+    x1 <- rnorm(n)
+    exposure <- rbinom(n, 1, plogis(0.8 * x1))
+    y <- rbinom(n, 1, plogis(-0.5 + 0.8 * exposure + 0.9 * x1))
+    d <- data.frame(x1 = x1, exposure = exposure, y = y)
+    bw_one <- balancing::balance(
+        d,
+        exposure,
+        x1,
+        method = balancing::bw_entropy(),
+        estimand = "ate",
+        exposure_type = "binary"
+    )
+    d$w <- stats::weights(bw_one)
+    balancing::ipw(
+        bw_one,
+        glm(y ~ exposure + x1, data = d, family = quasibinomial(), weights = w)
+    )
+}
+
+# balancing wraps the outcome model on every fit, so both readings are always
+# available to pool. `pool_ipw()` computes both on every call and presents the
+# one the call named, so the two objects below are the same pooling presented
+# two ways.
+pooled_fits <- lapply(c(2048, 4096, 8192), balance_one)
+pooled <- causalgenerics::pool_ipw(pooled_fits)
+pooled_cond <- causalgenerics::pool_ipw(pooled_fits, effects = "conditional")
+
+# hypotheses() tests the reading the pooled result presents, and reports what
+# the pooled frame reports.
+known_pooled <- as.data.frame(pooled)
+hp <- hypotheses(pooled)
+expect_equal(hp$term, known_pooled$term)
+expect_equivalent(hp$estimate, known_pooled$estimate, tolerance = 1e-10)
+expect_equal(hp$std.error, known_pooled$std.error, tolerance = 1e-6)
+
+# Moving a pooled result to the other reading has to report what pooling
+# directly into that reading reports, since both readings come out of the one
+# pooling and the flip exchanges stored frames rather than recomputing.
+hpf <- hypotheses(causalgenerics::as_conditional(pooled))
+hpc <- hypotheses(pooled_cond)
+expect_equal(hpf$term, hpc$term)
+expect_equivalent(hpf$estimate, hpc$estimate, tolerance = 1e-10)
+expect_equal(hpf$std.error, hpc$std.error, tolerance = 1e-6)
+
+# A pooled result keeps the pooled estimates, their covariance, and the pooling
+# diagnostics, and no component models, so per-row quantities are impossible by
+# construction rather than merely unsupported.
+expect_error(
+    avg_comparisons(pooled, variables = "exposure", newdata = dat),
+    pattern = "retains no fitted outcome model"
+)
+
+# Naming a reading on an accessor reports that reading for the one call and
+# leaves the result presenting the one it presented before.
+cc <- coef(pooled, effects = "conditional")
+expect_equal(names(cc), names(coef(pooled_cond)))
+expect_equal(pooled$effects, "marginal")
+expect_equal(names(coef(pooled)), known_pooled$term)
