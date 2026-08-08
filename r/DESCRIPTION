@@ -51,7 +51,7 @@ Suggests:
     afex,
     aod,
     arrow,
-    balancing,
+    balancing (>= 0.0.0.9000),
     bayestestR,
     bench,
     betareg,
@@ -67,7 +67,7 @@ Suggests:
     car,
     carData,
     causaldata,
-    causalgenerics,
+    causalgenerics (>= 0.1.0.9000),
     clarify,
     cjoint,
     cobalt,
@@ -151,7 +151,7 @@ Suggests:
     polspline,
     posterior,
     probably,
-    propensity,
+    propensity (>= 0.1.0.9000),
     pscl,
     purrr,
     quantreg,
@@ -205,10 +205,7 @@ Suggests:
     altdoc,
     knitr,
     quarto
-Remotes:
-    r-causal/balancing,
-    r-causal/causalgenerics,
-    r-causal/propensity
+Additional_repositories: https://r-causal.r-universe.dev
 Collate:
     'add_hypothesis.R'
     'add_rowid.R'
